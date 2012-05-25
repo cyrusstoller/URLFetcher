@@ -1,0 +1,16 @@
+<header class="jumbotron masthead">
+  <div class="inner">
+    <h1>Welcome!</h1>
+
+    <p>
+      This is an HTTP interface to fetch the contents of URLs.
+    </p>
+    <br>
+    <p>
+      <%= form_for Content.new, :html => { :class => "form-inline center" } do |f| %>
+        <%= f.text_field :url, :class => "input span5", :placeholder => "URL whose contents you want to fetch ( ie http://www.example.com/ )" %>
+        <%= f.submit "Submit URL", :class => "btn btn-success" %>
+      <% end %>
+    </p>
+  </div>
+</header>

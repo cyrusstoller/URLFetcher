@@ -1,0 +1,70 @@
+<h3>REST API</h3>
+
+<h4>Resource URL Patterns</h4>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Route</th>
+      <th class="span3">Supports</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>GET 'index'</code></td>
+      <td><code>/contents</code></td>
+      <td>
+        <code>html</code>, <code>json</code>, or <code>txt</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GET 'show'</code></td>
+      <td><code>/contents/1</code></td>
+      <td>
+        <code>html</code>, <code>json</code>, or <code>txt</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GET 'new'</code></td>
+      <td><code>/contents/new</code></td>
+      <td>
+        <code>html</code> or <code>json</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GET 'edit'</code></td>
+      <td><code>/contents/1/edit</code></td>
+      <td><code>html</code></td>
+    </tr>
+    <tr>
+      <td><code>POST 'create'</code></td>
+      <td><code>/contents</code></td>
+      <td>
+        <code>html</code> or <code>json</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>PUT 'update'</code></td>
+      <td><code>/contents/1</code></td>
+      <td>
+        <code>html</code> or <code>json</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>DELETE 'destroy'</code></td>
+      <td><code>/contents/1</code></td>
+      <td>
+        <code>html</code> or <code>json</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="well">
+  <h4>Example POST Request</h4>
+  <pre>curl -H "Content-Type: application/json" -X POST \
+    -d '{"content":{"url": "http://www.swarthmore.edu"}}' \
+    http://localhost:5000/contents.json -u admin_user:admin_password</pre>
+  <span class="label label-important">Note</span> This site is protected by HTTP Basic Authentication, so you need to provide the 
+  <i>admin_username</i> and <i>admin_password</i>.
+</div>

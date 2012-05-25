@@ -1,0 +1,74 @@
+<h1>Documentation</h1>
+<br>
+
+<div class="row">
+  <div class="span6">
+    <%= render :partial => 'rest_api_spec' %>
+    
+    <%= render :partial => 'content_model_spec' %>
+  </div>
+  <div class="span6">
+    <h3>How does this work?</h3>
+    <p>
+      This Rails application fetches the content from user-supplied URLs. 
+      The service is accessible via the REST API specified on the left.
+    </p>
+    <p>
+      After a POST request is issued to the Rails application to create a new <code>content</code> record, its <code>id</code> is
+      placed in a queue, until a worker fetches the content of the url provided by the user. 
+    </p>
+    <p>  
+      After the content has been fetched a POST request will be issued to the <code>callback_url</code> if it has been provided. 
+    </p>
+    <h4>JSON posted to the callback_url</h4>
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <td><code>content_id</code></td>
+          <td>Parameter used to lookup the fetched content</td>
+        </tr>
+        <tr>
+          <td><code>status</code></td>
+          <td>Whether the fetch was successful</td>
+        </tr>
+        <tr>
+          <td><code>url</code></td>
+          <td>The url that was submitted and fetched</td>
+        </tr>
+        <tr>
+          <td><code>final_url</code> (if necessary)</td>
+          <td>The url that submitted url redirected to</td>
+        </tr>
+        <tr>
+          <td><code>num_redirects</code> (if necessary)</td>
+          <td>The number of redirects</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Scaling</h4>
+    <p>
+      If the traffic demands it, you can easily increase the number of rails servers and/or the 
+      number of <code>resque</code> workers, since this application uses <code>foreman</code>.
+    </p>
+    
+    <p>
+      On Heroku, you would do this with a command like <code>$ heroku ps:scale worker=4</code> for four workers.
+      Each server is treated modularly, so they can be swapped in and out if they misbehave.
+    </p>
+
+    <p>This application should have no issue handling access from multiple clients.</p>
+    
+    <h4>Trusting the client</h4>
+    <p>
+      This application effectively only has one user, the admin, authenticated through HTTP Basic Authentication. 
+      Unless a user has the admin username and password, they will not have access to this application at all. 
+      This will hopefully keep out malicious users.
+    </p>
+    
+    <h4>Settings</h4>
+    Currently, the maximum number of redirects that will be followed is <%= APP_CONFIG["max_redirects"] %>. You can change that by updating
+    <code>config/config.yml</code> and restarting the application.
+    
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="row">
+  <%= form_for @content, :html => { :class => 'form-vertical span7' } do |f| %>
+    <div class="control-group">
+      <%= f.label :url, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :url, :class => 'text_field span6', 
+                         :placeholder => "URL whose contents you want to fetch ( ie http://www.example.com/ )" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :callback_url, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :callback_url, :class => 'text_field span6', 
+                         :placeholder => "URL that will receive a POST request once the content has been fetched" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :user_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.number_field :user_id, :class => 'number_field' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  contents_path, :class => 'btn' %>
+    </div>
+  <% end %>
+</div>

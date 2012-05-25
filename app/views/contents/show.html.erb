@@ -1,0 +1,62 @@
+<%- model_class = @content.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human %></h1>
+<br>
+<p>
+  <strong><%= model_class.human_attribute_name(:url) %>:</strong>
+  <%= @content.url %>
+</p>
+
+<% if @content.num_redirects > 0 %>
+  <p>
+    <strong><%= model_class.human_attribute_name(:final_url) %>:</strong>
+    <%= @content.final_url %>
+  </p>
+
+  <p>
+    <strong><%= model_class.human_attribute_name(:num_redirects) %>:</strong>
+    <%= @content.num_redirects %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= model_class.human_attribute_name(:body) %>:</strong>
+  <%= show_body(@content) %>
+</p>
+
+<% unless @content.callback_url.blank? %>
+  <p>
+    <strong><%= model_class.human_attribute_name(:callback_url) %>:</strong><br>
+    <%= @content.callback_url %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= model_class.human_attribute_name(:user_id) %>:</strong>
+  <%= @content.user_id %>
+</p>
+
+<p>
+  <strong><%= model_class.human_attribute_name(:flag) %>:</strong> 
+  <% case @content.flag %>
+  <% when 0 %>
+  Normal
+  <% when 1 %>
+  Questionable
+  <% when 2 %>
+  Malicious
+  <% else %>
+  Unknown Flag
+  <% end %>
+</p>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              contents_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_content_path(@content), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              content_path(@content),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

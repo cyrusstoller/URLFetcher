@@ -1,0 +1,77 @@
+<h3>Contents <small> &mdash; Model specification</small></h3>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Row</th>
+      <th>Type</th>
+      <th class="span4">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th colspan=3>attr_accessible</th>
+    </tr>
+    <tr>
+      <td>
+        <code>url</code> <i>(Required)</i>
+      </td>
+      <td>String</td>
+      <td>
+        URL to be fetched
+      </td>
+    </tr>
+    <tr>
+      <td><code>callback_url</code> <i>(Optional)</i></td>
+      <td>String</td>
+      <td>
+        URL will receive a POST request once the contents of the <code>url</code> have been fetched.
+      </td>
+    </tr>
+    <tr>
+      <td><code>user_id</code> <i>(Optional)</i></td>
+      <td>Integer</td>
+      <td>
+        The user whose account requested the <code>url</code> to be fetched.
+      </td>
+    </tr>
+    <tr>
+      <th colspan=3>not attr_accessible (set automatically if necessary)</th>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td>Integer</td>
+      <td>Primary key</td>
+    </tr>
+    <tr>
+      <td><code>final_url</code></td>
+      <td>String</td>
+      <td>
+        Final URL whose contents were retrieved after up to <%= APP_CONFIG["max_redirects"] %> redirects. 
+        Only present there was at least one redirect.
+    </td>
+    </tr>
+    <tr>
+      <td><code>num_redirects</code> <i>(Default: 0)</i></td>
+      <td>Integer</td>
+      <td>
+        Number of redirects followed before the content was retrieved.
+      </td>
+    </tr>
+    <tr>
+      <td><code>body</code></td>
+      <td>Text</td>
+      <td>
+        The HTML content retrieved from the <code>url</code>.
+        <br>
+        <i>(Set during asynchronous url fetching)</i>
+      </td>
+    </tr>
+    <tr>
+      <td><code>flag</code> <i>(Default: 0)</i></td>
+      <td>Integer</td>
+      <td>
+        0: normal, 1: questionable, 2: malicious
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,52 @@
+<%- model_class = Content.new.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:url).upcase %></th>
+      <th><%= model_class.human_attribute_name(:final_url) %></th>
+      <th><%= model_class.human_attribute_name(:body) %></th>
+      <th><%= model_class.human_attribute_name(:callback_url) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><% model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contents.each do |content| %>
+      <tr>
+        <td><%= link_to content.id, content_path(content) %></td>
+        <td><%= content.url %></td>
+        <td>
+          <% if content.num_redirects > 0 %>
+            <%= content.final_url %>
+          <% else %>
+            N/A
+          <% end %>
+        </td>
+        <td>
+          <%= show_body(content) %>
+        </td>
+        <td><%= content.callback_url %></td>
+        <td><%= content.user_id %></td>
+        <td><% l content.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_content_path(content), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      content_path(content),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @contents %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_content_path,
+            :class => 'btn btn-primary' %>
